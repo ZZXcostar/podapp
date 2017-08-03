@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html ng-app="podapp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>易记账</title>
+  <link rel="manifest" href="manifest.json">
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="lib/highcharts-ng/dist/highcharts-ng.css" rel="stylesheet">
+  <!--<link href="css/ionic.app.css" rel="stylesheet">-->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!--<script src="cordova.js"></script>-->
+  <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+  <script src="lib/highcharts/highcharts.src.js"></script>
+  <script src="lib/highcharts/highcharts-3d.src.js"></script>
+  <script src="lib/highcharts/highcharts-more.src.js"></script>
+  <script src="lib/highcharts-ng/dist/highcharts-ng.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="views/hello/c.js"></script>
+  <script src="views/charge/c.js"></script>
+  <script src="views/report/c.js"></script>
+    <style>
+    .hello {
+      width: 100%;
+      background-image: url(img/food.jpg);
+      background-position: 50% 50%;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+    .pull::before {
+      content: '';
+      display: block;
+      width: 102px;
+      height: 139px;
+      position: fixed;
+      left: calc(50% - 53px);
+      top: -50px;
+      background-image: url(img/food.jpg);
+      background-image: url(img/2233.png);
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+    .pull::after {
+        content: '';
+        display: block;
+        position: fixed;
+        top: -330px;
+        left: 50%;
+        width: 2px;
+        height: 300px;
+        background-image: linear-gradient(#600, #fc0);
+    }
+    .my-date {
+        margin: 0;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+    .my-value {
+        margin: 0;
+        padding: 16px;
+        position: relative;
+        margin-bottom: -10px;
+        text-align: right;
+        font-size: 32px;
+    }
+    .my-class {
+        position: absolute;
+        top: 6px;
+        left: 10px;
+        font-size: 16px;
+    }
+    .my-class div {
+        padding: 5px;
+    }
+    .my-class div i {
+        width: 28px;
+        font-size: 26px;
+        display: inline-block;
+        text-align: center;
+    }
+    .my-calc {
+        margin: 0;
+    }
+    .my-calc, .my-calc div {
+        border: none !important;
+    }
+    .my-calc a {
+        text-decoration: none;
+        display: block;
+        margin: 0;
+        padding: 8px;
+        color: #333;
+        border: 1px solid #666;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+    }
+    .my-calc a:active {
+        color: #333;
+        font-weight: bold;
+        background-color: #ccc;
+    }
+    .my-list {
+        margin: 10px;
+        padding: 0;
+        min-height: 200px;
+    }
+    .my-list::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    .my-list .my-item {
+        float: left;
+        width: 25%;
+        padding: 6px 10px;
+        text-align: center;
+        color: #333;
+        border: 1px solid #fff;
+    }
+    .my-item.active {
+        color: #fff;
+    }
+    .my-list .title {
+      /*text-align: center;*/
+      font-size: 16px;
+      font-weight: bold;
+      padding: 0 5px 5px;
+    }
+    .menu-left {
+      background-image: url(img/bimg.jpg);
+      -webkit-background-size: cover;
+      background-size: cover;
+      animation: move 30s linear infinite alternate;
+    }
+    @keyframes move {
+      100% {
+        background-position: 100% 0;
+      }
+    }
+    </style>
+</head>
+
+<body>
+	<ion-side-menus enable-menu-with-back-views="false">
+		<ion-side-menu-content>
+			<ion-nav-bar class="bar-assertive">
+				<ion-nav-back-button>
+				</ion-nav-back-button>
+				<ion-nav-buttons side="left">
+					<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+				</ion-nav-buttons>
+			</ion-nav-bar>
+			<ion-nav-view name="menuContent"></ion-nav-view>
+		</ion-side-menu-content>
+		<ion-side-menu side="left" class="menu-left">
+			<ion-header-bar class="bar-positive">
+				<h1 class="title">易记账</h1>
+			</ion-header-bar>
+			<ion-content>
+				<ion-list>
+					<!--<ion-item menu-close ng-click="login()">
+						Login
+					</ion-item>-->
+					<ion-item menu-close href="#/hello">
+						首页
+					</ion-item>
+					<ion-item menu-close href="#/charge">
+						日常记账
+					</ion-item>
+					<ion-item menu-close href="#/report">
+						统计报表
+					</ion-item>
+          <ion-item menu-close ng-click="randata()">
+            随机数据
+          </ion-item>
+				</ion-list>
+			</ion-content>
+		</ion-side-menu>
+	</ion-side-menus>
+	<!--<ion-nav-view></ion-nav-view>-->
+</body>
+</html>

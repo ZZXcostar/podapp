@@ -1,0 +1,133 @@
+<ion-view view-title="账单记录">
+  <ion-content style="width: 100%;
+      background:50% 50% url(img/tree.jpg);
+      -webkit-background-size: cover;
+      background-size: cover;">
+    <div ng-click="openp()" class="my-date stable-dark">
+      {{ info.date | date :"yyyy年 MM月 dd日" }}
+    </div>
+    <!--<pre>{{ classif | json }}</pre>-->
+    <ion-slide-box style="opacity: 0.8;">
+      <ion-slide>
+        <div class="my-list">
+          <div class="title">支出类</div>
+          <div ng-repeat="item in classif[0]" ng-click="set(0, $index)"
+               ng-class="{
+            'stable-bg': info.class != 0 || info.subClass != $index,
+            'calm-bg': info.class == 0 && info.subClass == $index,
+            'active': info.class == 0 && info.subClass == $index
+          }" class="my-item">
+            <img ng-src="{{ item.img }}">
+            {{ item.name }}
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="my-list">
+          <div class="title">收入类</div>
+          <div ng-repeat="item in classif[1]" ng-click="set(1, $index)" ng-class="{
+            'stable-bg': info.class != 1 || info.subClass != $index,
+            'balanced-bg': info.class == 1 && info.subClass == $index,
+            'active': info.class == 1 && info.subClass == $index
+          }" class="my-item">
+            <img ng-src="{{ item.img }}">
+            {{ item.name }}
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+
+    <div class="my-value">
+    <div class="my-class">
+      <div ng-class="{
+                    'positive': !info.class,
+                    'royal': info.class
+                }" class="">
+        <i ng-class="{
+                        'ion-sad-outline': info.class == 0,
+                        'ion-happy-outline': info.class == 1
+                    }" class="icon"></i> {{ classif[info.class][info.subClass].name }}
+      </div>
+    </div>
+    {{ info.value }}
+  </div>
+
+    <div class="list my-calc" style="opacity: 0.9;">
+    <div class="item row">
+      <div class="col"><a ng-click="N('7')">7</a></div>
+      <div class="col"><a ng-click="N('8')">8</a></div>
+      <div class="col"><a ng-click="N('9')">9</a></div>
+      <div class="col"><a ng-click="C()">C</a></div>
+    </div>
+    <div class="item row">
+      <div class="col"><a ng-click="N('4')">4</a></div>
+      <div class="col"><a ng-click="N('5')">5</a></div>
+      <div class="col"><a ng-click="N('6')">6</a></div>
+      <div class="col"><a ng-click="B()"><i class="icon ion-backspace-outline"></i></a></div>
+    </div>
+    <div class="item row">
+      <div class="col"><a ng-click="N('1')">1</a></div>
+      <div class="col"><a ng-click="N('2')">2</a></div>
+      <div class="col"><a ng-click="N('3')">3</a></div>
+      <div class="col"><a ng-click="I()" ng-show="info.value > 0">记录</a></div>
+    </div>
+    <div class="item row">
+      <div class="col"><a ng-click="N('00')">00</a></div>
+      <div class="col"><a ng-click="N('0')">0</a></div>
+      <div class="col"><a ng-click="P()">.</a></div>
+      <div class="col"><a ng-click="F()">完成</a></div>
+    </div>
+  </div>
+
+    <ion-list>
+      <ion-item class="item-divider row" style="opacity: 0.8;">
+        <div class="col text-center">￥ 本月收入</div>
+        <div class="col text-center">￥ 本月支出</div>
+        <div class="col text-center">￥ 本月盈余</div>
+      </ion-item>
+      <ion-item class="row" style="opacity: 0.9;">
+        <div class="col text-right positive">
+          <b>{{ sum[1] | currency :"" }}</b> &nbsp;
+        </div>
+        <div class="col text-right assertive">
+          <b>{{ sum[0] | currency :"" }}</b> &nbsp;
+        </div>
+        <div class="col text-right royal">
+          <b>{{ sum[2] | currency :"" }}</b> &nbsp;
+        </div>
+      </ion-item>
+      <ion-item class="item-divider row" style="opacity: 0.9;">
+        <div class="col text-center">账单日期</div>
+        <div class="col text-center">收支类别</div>
+        <div class="col text-right">￥ 金额 &nbsp;</div>
+      </ion-item>
+      <ion-item style="opacity: 0.9;" ng-repeat="row in data | orderBy :'-date'" on-hold="delete(row.id)" class="item-divider row light-bg">
+        <div class="col text-center">{{ row.date | date :"yyyy-MM-dd" }}</div>
+        <div class="col text-center">{{ classif[row.class][row.subClass].name }}</div>
+        <div ng-class="{
+          'positive': row.class,
+          'assertive': !row.class
+        }" class="col text-right">
+          {{ row.value | currency :"" }}
+          &nbsp;
+        </div>
+      </ion-item>
+    </ion-list>
+    
+      <!--  <ion-list>
+        <ion-item ng-repeat="row in data" type="item-text-wrap" class="row">
+          {{ row.date | date :"yyyy-MM-dd" }}
+          {{ classif[row.class][row.subClass].name }}
+          <div ng-class="{
+            'positive': row.class,
+            'assertive': !row.class
+          }" class="badge">{{ row.value | currency :"" }}</div>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+          <ion-option-button class="button-assertive" ng-click="remove()">
+            删除
+          </ion-option-button>
+        </ion-item>
+      </ion-list>  -->
+    
+  </ion-content>
+</ion-view>

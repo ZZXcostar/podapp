@@ -1,0 +1,60 @@
+<ion-view view-title="统计报表">
+  <ion-content>
+    <ion-refresher on-refresh="reDraw()" pulling-text="下拉刷新"></ion-refresher>
+    <ion-list ng-click="view = !view">
+      <ion-item class="item-divider">
+        今年收支统计 <small>...</small>
+      </ion-item>
+      <ion-item class="item-divider light-bg row">
+        <div class="col-25 text-center">总收入</div>
+        <div class="col-66 text-right dark">{{ list[1] | currency :"￥ " :0 }}</div>
+      </ion-item>
+      <ion-item class="item-divider light-bg row">
+        <div class="col-25 text-center">总支出</div>
+        <div class="col-66 text-right dark">{{ list[0] | currency :"￥ " :0 }}</div>
+      </ion-item>
+      <ion-item class="item-divider light-bg row">
+        <div class="col-25 text-center">总盈余</div>
+        <div ng-class="{
+            'assertive': list[2] < 0, 'positive': list[2] > 0
+        }" class="col-66 text-right dark">{{ list[2] | currency :"￥ " :0 }}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list ng-show="view" ng-click="view = !view">
+      <ion-item class="item-divider positive-bg light">
+        今年收入汇总
+      </ion-item>
+      <div ng-repeat="row in data[1] | orderBy :'-y'" class="item item-divider light-bg row">
+        <div class="col-20 text-center">
+          {{ $index + 1 }}
+        </div>
+        <div class="col-20">{{ row.name }}</div>
+        <div class="col-50 text-right">
+          {{ row.y | currency :"￥ " :0 }}
+        </div>
+      </div>
+      </div>
+      <ion-item class="item-divider assertive-bg light">
+        今年支出汇总
+      </ion-item>
+      <div ng-repeat="row in data[0] | orderBy :'-y'" class="item item-divider light-bg row">
+        <div class="col-20 text-center">
+          {{ $index + 1 }}
+        </div>
+        <div class="col-20">{{ row.name }}</div>
+        <div class="col-50 text-right">
+          {{ row.y | currency :"￥ " :0 }}
+        </div>
+      </div>
+      </div>
+    </ion-list>
+    <!-- <ion-list>
+      <ion-item class="item-divider">收支对比图</ion-item>
+    </ion-list>
+    <highchart config="blockConfig" class="chart"></highchart> -->
+    <ion-list>
+      <ion-item class="item-divider">今年支出饼图</ion-item>
+    </ion-list>
+    <highchart config="pieConfig" class="chart"></highchart>
+  </ion-content>
+</ion-view>
